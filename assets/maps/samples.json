@@ -1,0 +1,381 @@
+{
+  "version": 1,
+  "size_px": [
+    128,
+    96
+  ],
+  "meters_per_pixel": 1,
+  "meters_per_elevation_value": 0.025,
+  "layout_palette_rgb": {
+    "void": [
+      22,
+      29,
+      38
+    ],
+    "terrain": [
+      95,
+      128,
+      84
+    ],
+    "road": [
+      225,
+      220,
+      201
+    ],
+    "floor": [
+      176,
+      195,
+      204
+    ],
+    "wall": [
+      196,
+      107,
+      61
+    ],
+    "obstacle": [
+      55,
+      93,
+      109
+    ]
+  },
+  "samples": [
+    {
+      "mode": "race",
+      "layout": "racing-layout.png",
+      "elevation": "racing-elevation.png",
+      "expected": {
+        "road_components": 1,
+        "enclosed_infields": 1,
+        "ordered_checkpoint_pixels": [
+          [
+            58,
+            17
+          ],
+          [
+            113,
+            42
+          ],
+          [
+            65,
+            77
+          ],
+          [
+            17,
+            50
+          ]
+        ],
+        "height_checks": [
+          {
+            "pixel": [
+              58,
+              17
+            ],
+            "meters": 0
+          },
+          {
+            "pixel": [
+              65,
+              77
+            ],
+            "meters": 2.85
+          }
+        ]
+      }
+    },
+    {
+      "mode": "fps",
+      "layout": "fps-layout.png",
+      "elevation": "fps-elevation.png",
+      "expected": {
+        "floor_components": 1,
+        "spawn_pixel": [
+          22,
+          48
+        ],
+        "objective_pixel": [
+          105,
+          48
+        ],
+        "height_checks": [
+          {
+            "pixel": [
+              22,
+              48
+            ],
+            "meters": 0
+          },
+          {
+            "pixel": [
+              64,
+              48
+            ],
+            "meters": 1.5
+          },
+          {
+            "pixel": [
+              105,
+              48
+            ],
+            "meters": 3
+          }
+        ]
+      }
+    },
+    {
+      "mode": "race",
+      "size_px": [
+        256,
+        192
+      ],
+      "layout": "racing-switchbacks-layout.png",
+      "elevation": "racing-switchbacks-elevation.png",
+      "expected": {
+        "road_components": 1,
+        "enclosed_infields": 1,
+        "ordered_checkpoint_pixels": [
+          [
+            50,
+            25
+          ],
+          [
+            159,
+            28
+          ],
+          [
+            232,
+            52
+          ],
+          [
+            168,
+            95
+          ],
+          [
+            108,
+            98
+          ],
+          [
+            217,
+            121
+          ],
+          [
+            204,
+            170
+          ],
+          [
+            104,
+            145
+          ],
+          [
+            44,
+            164
+          ],
+          [
+            65,
+            90
+          ]
+        ],
+        "height_checks": [
+          {
+            "pixel": [
+              50,
+              25
+            ],
+            "meters": 0.75
+          },
+          {
+            "pixel": [
+              111,
+              25
+            ],
+            "meters": 0
+          },
+          {
+            "pixel": [
+              190,
+              113
+            ],
+            "meters": 3.475
+          },
+          {
+            "pixel": [
+              204,
+              170
+            ],
+            "meters": 2.3
+          }
+        ]
+      }
+    },
+    {
+      "mode": "fps",
+      "size_px": [
+        256,
+        192
+      ],
+      "layout": "fps-multi-route-layout.png",
+      "elevation": "fps-multi-route-elevation.png",
+      "expected": {
+        "floor_components": 1,
+        "spawn_pixel": [
+          27,
+          97
+        ],
+        "objective_pixel": [
+          228,
+          97
+        ],
+        "obstacle_components": 15,
+        "route_waypoints": {
+          "north": [
+            [
+              27,
+              97
+            ],
+            [
+              39,
+              97
+            ],
+            [
+              39,
+              52
+            ],
+            [
+              75,
+              52
+            ],
+            [
+              75,
+              46
+            ],
+            [
+              90,
+              46
+            ],
+            [
+              90,
+              52
+            ],
+            [
+              217,
+              52
+            ],
+            [
+              217,
+              72
+            ],
+            [
+              224,
+              72
+            ],
+            [
+              224,
+              97
+            ],
+            [
+              228,
+              97
+            ]
+          ],
+          "center": [
+            [
+              27,
+              97
+            ],
+            [
+              48,
+              97
+            ],
+            [
+              48,
+              90
+            ],
+            [
+              147,
+              90
+            ],
+            [
+              147,
+              97
+            ],
+            [
+              228,
+              97
+            ]
+          ],
+          "south": [
+            [
+              27,
+              97
+            ],
+            [
+              31,
+              97
+            ],
+            [
+              31,
+              118
+            ],
+            [
+              39,
+              118
+            ],
+            [
+              39,
+              144
+            ],
+            [
+              217,
+              144
+            ],
+            [
+              217,
+              119
+            ],
+            [
+              225,
+              119
+            ],
+            [
+              225,
+              97
+            ],
+            [
+              228,
+              97
+            ]
+          ]
+        },
+        "height_checks": [
+          {
+            "pixel": [
+              27,
+              97
+            ],
+            "meters": 0
+          },
+          {
+            "pixel": [
+              151,
+              47
+            ],
+            "meters": 2.4
+          },
+          {
+            "pixel": [
+              125,
+              90
+            ],
+            "meters": 4
+          },
+          {
+            "pixel": [
+              228,
+              97
+            ],
+            "meters": 0
+          }
+        ]
+      }
+    }
+  ]
+}

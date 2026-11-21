@@ -1,13 +1,15 @@
 # GeoRena
 
-GeoRena generates low-poly 3D blockouts from a seed. The C++17 engine ships with two presets.
+GeoRena generates low-poly 3D arenas offline. The project goal is a reproducible arena compiler and verifier. A seed or a top-down map with elevation will produce a GLB, collision geometry, and gameplay data that a headless run can check.
+
+The current C++17 generator builds arenas from a preset and a seed.
 
 - **Racing circuit:** a closed Catmull–Rom track with kerbs, a start gantry, pines, and faceted rocks.
 - **FPS depot:** a fictional loading yard with mirrored wings, perimeter walls, and modular props.
 
 Exports are self-contained GLB files with named meshes, material colors, and flat normals. Coordinates use meters with Y up. The scene metadata records the preset and seed. The output is geometry for game development.
 
-See the [roadmap](ROADMAP.md) for planned gameplay, arena creation, and daily challenges.
+The [roadmap](ROADMAP.md) starts with a verified racing bundle, then covers collision checks, map import, and scripted runs for racing and FPS.
 
 ## Core quick start
 
@@ -21,6 +23,14 @@ make test
 ```
 
 Seeds are unsigned 32-bit integers. Use `-` as the output argument to stream GLB to stdout. Sample exports are bundled in [assets](assets/) and can be regenerated with `make samples`. The [circuit concept plate](assets/circuit-concept.jpg) is an AI-generated illustration.
+
+## Top-down map samples
+
+The [racing and FPS samples](assets/maps/) pair a labeled PNG layout with a grayscale elevation map. The sample manifest gives expected connectivity, checkpoint or objective locations, and reference heights for the planned importer.
+
+```sh
+python3 tools/generate_map_samples.py
+```
 
 ## Car models
 
@@ -41,7 +51,7 @@ In C++, call `georena::generateCar(type, level)` from [car.hpp](src/car.hpp). [c
 python3 workbench/serve.py
 ```
 
-The Workbench is GeoRena's browser interface. Open `http://127.0.0.1:8765` in a WebGL-capable browser while the local server is running. Select a preset and seed, generate the scene, then orbit, zoom, or download the GLB. The server binds to loopback and calls the compiled CLI for each export.
+The Workbench is GeoRena's browser interface. Open `http://127.0.0.1:8765` while the local server is running. Select a preset and seed to generate and download the GLB. When WebGL is available, you can also orbit and zoom in the 3D preview. The server binds to loopback and calls the compiled CLI for each export.
 
 Open **Asset palette** to preview and download the bundled [UI textures, avatars, HUD icons, power-ups, rewards, decals, and effect sprites](assets/ui/).
 
