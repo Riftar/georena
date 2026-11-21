@@ -1,0 +1,20 @@
+/* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 */
+:root {
+  color-scheme: dark;
+  --bg: #141715;
+  --panel: #1c211e;
+  --surface: #222823;
+  --hover: #2b342c;
+  --stage: #202623;
+  --grid: #353e37;
+  --line: #39443b;
+  --text: #ecf0e7;
+  --quiet: #b2beb1;
+  --accent: #d3f77e;
+  --on-accent: #192211;
+  --selected: #2b3725;
+  --error: #ffb4a7;
+  --overlay: #171d19ee;
+  --font-body: system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+}

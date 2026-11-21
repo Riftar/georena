@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#161a18">
+  <title>GeoRena · Arena Workbench</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/main.js" defer></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="brand"><span class="mark" aria-hidden="true"></span><h1>GeoRena</h1></div>
+    <span class="bar-label">Arena workbench</span>
+    <a id="download" class="download" role="link" aria-disabled="true">Download GLB <span aria-hidden="true">↓</span></a>
+  </header>
+  <main class="workbench">
+    <section class="stage" aria-labelledby="scene-name" aria-busy="true">
+      <div class="stage-head">
+        <div>
+          <p class="label">Scene preview</p>
+          <h2 id="scene-name">Racing circuit</h2>
+        </div>
+        <button id="reset-view" type="button" disabled>Reset view</button>
+      </div>
+      <canvas id="viewport" aria-label="3D orbit preview" aria-describedby="camera-help" tabindex="0"></canvas>
+      <div class="stage-foot">
+        <span id="camera-help">Drag or use arrow keys to orbit. Scroll or use +/− to zoom.</span>
+        <output id="counts"></output>
+      </div>
+      <p id="status" class="status" role="status">Generating scene…</p>
+    </section>
+    <aside class="inspector" aria-label="Scene generator">
+      <form id="generator">
+        <fieldset>
+          <legend>Preset</legend>
+          <label class="preset">
+            <input type="radio" name="mode" value="race" checked>
+            <span class="preset-body">
+              <strong>Racing circuit</strong>
+              <span>Closed track, start gantry, pines and boulders.</span>
+            </span>
+          </label>
+          <label class="preset">
+            <input type="radio" name="mode" value="fps">
+            <span class="preset-body">
+              <strong>FPS depot</strong>
+              <span>Mirrored loading yard with crates and containers.</span>
+            </span>
+          </label>
+        </fieldset>
+        <div class="seed-control">
+          <label for="seed">Seed</label>
+          <div class="seed-row">
+            <input id="seed" name="seed" type="text" value="42" inputmode="numeric" pattern="[0-9]{1,10}" maxlength="10" required>
+            <button id="shuffle" type="button">Randomize</button>
+          </div>
+        </div>
+        <button class="generate" type="submit">Generate scene</button>
+      </form>
+    </aside>
+  </main>
+</body>
+</html>
