@@ -1,7 +1,7 @@
 CXXFLAGS ?= -O2 -Wall -Wextra -Wpedantic
 PYTHON ?= python3
 
-.PHONY: all test samples
+.PHONY: all test samples validate-glb
 
 all: build/georena
 
@@ -11,6 +11,9 @@ build/georena: src/main.cpp src/arena.cpp src/car.cpp src/glb.cpp src/arena.hpp 
 
 test: build/georena
 	$(PYTHON) -m unittest discover -s tests -v
+
+validate-glb: build/georena
+	$(PYTHON) tools/validate_glbs.py
 
 samples: build/georena
 	mkdir -p assets

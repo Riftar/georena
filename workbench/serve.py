@@ -14,6 +14,7 @@ ART = HERE.parent / "assets" / "ui"
 STATIC = {
     "/": (WEB / "index.html", "text/html; charset=utf-8"),
     "/main.js": (WEB / "main.js", "text/javascript; charset=utf-8"),
+    "/top-down.js": (WEB / "top-down.js", "text/javascript; charset=utf-8"),
     "/style.css": (WEB / "style.css", "text/css; charset=utf-8"),
     "/tokens.css": (WEB / "tokens.css", "text/css; charset=utf-8"),
     "/asset-palette.js": (WEB / "asset-palette.js", "text/javascript; charset=utf-8"),

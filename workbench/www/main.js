@@ -1,12 +1,16 @@
 "use strict";
 
 const canvas = document.querySelector("#viewport");
+const mapCanvas = document.querySelector("#top-down");
 const form = document.querySelector("#generator");
 const seed = document.querySelector("#seed");
 const status = document.querySelector("#status");
 const stage = document.querySelector(".stage");
 const download = document.querySelector("#download");
 const reset = document.querySelector("#reset-view");
+const switchView = document.querySelector("#switch-view");
+const cameraHelp = document.querySelector("#camera-help");
+const orbitHelp = cameraHelp.textContent;
 const generateButton = form.querySelector("[type=submit]");
 
 function decodeScene(buffer) {
@@ -49,6 +53,8 @@ function decodeScene(buffer) {
     parts,
     objects: scene.nodes.length,
     triangles: parts.reduce((total, part) => total + part.count / 3, 0),
+    min,
+    max,
     center: min.map((value, axis) => (value + max[axis]) / 2),
     radius: Math.hypot(...min.map((value, axis) => (max[axis] - value) / 2)),
     ...scene.extras
@@ -207,15 +213,54 @@ function setStatus(message = "", error = false) {
   status.toggleAttribute("data-error", error);
 }
 
-let show;
+let scene;
+let showOrbit;
+let showTopDown;
+let preferOrbit = true;
 let fileUrl;
 
 try {
   const context = canvas.getContext("webgl", {antialias: true});
-  if (context) show = makeViewer(context);
-} catch (error) {
-  setStatus(error.message, true);
+  if (context) showOrbit = makeViewer(context);
+} catch {
+  // The top-down view also covers renderer initialization errors.
 }
+
+try {
+  showTopDown = makeTopDownViewer(mapCanvas);
+} catch {
+  // Generation and downloads still work if both renderers are unavailable.
+}
+
+function updatePreview() {
+  const orbit = preferOrbit && showOrbit;
+  const topDown = !orbit && showTopDown;
+  canvas.hidden = Boolean(topDown);
+  mapCanvas.hidden = !topDown;
+  reset.hidden = !orbit;
+  switchView.hidden = !(showOrbit && showTopDown);
+  switchView.textContent = orbit ? "Top-down" : "3D orbit";
+  if (orbit) {
+    cameraHelp.textContent = orbitHelp;
+  } else if (topDown) {
+    cameraHelp.textContent = showOrbit ? "Top-down view." : "3D preview unavailable. Showing the top-down view.";
+  } else {
+    cameraHelp.textContent = "Preview unavailable.";
+  }
+  if (scene && orbit) showOrbit(scene);
+  if (scene && topDown) showTopDown(scene);
+}
+
+switchView.addEventListener("click", () => {
+  preferOrbit = !preferOrbit;
+  updatePreview();
+});
+canvas.addEventListener("webglcontextlost", () => {
+  showOrbit = null;
+  updatePreview();
+  if (scene && !showTopDown) setStatus("Preview unavailable. The GLB is ready to download.", true);
+});
+updatePreview();
 
 async function generate() {
   const params = new URLSearchParams(new FormData(form));
@@ -227,7 +272,6 @@ async function generate() {
     if (!response.ok) throw new Error("Could not generate a scene. Check the preset and seed.");
     const buffer = await response.arrayBuffer();
     const next = decodeScene(buffer);
-    if (show) show(next);
     const {mode, seed, objects, triangles} = next;
     const title = document.querySelector("#scene-name");
     title.textContent = mode === "race" ? "Racing circuit" : "FPS depot";
@@ -238,7 +282,10 @@ async function generate() {
     download.href = fileUrl;
     download.download = `georena-${mode}-${seed}.glb`;
     download.removeAttribute("aria-disabled");
-    setStatus(show ? "" : "WebGL preview unavailable. The GLB is ready to download.", !show);
+    scene = next;
+    updatePreview();
+    const canPreview = showOrbit || showTopDown;
+    setStatus(canPreview ? "" : "Preview unavailable. The GLB is ready to download.", !canPreview);
   } catch (error) {
     setStatus(error.message, true);
   } finally {

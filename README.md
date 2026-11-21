@@ -51,12 +51,16 @@ In C++, call `georena::generateCar(type, level)` from [car.hpp](src/car.hpp). [c
 python3 workbench/serve.py
 ```
 
-The Workbench is GeoRena's browser interface. Open `http://127.0.0.1:8765` while the local server is running. Select a preset and seed to generate and download the GLB. When WebGL is available, you can also orbit and zoom in the 3D preview. The server binds to loopback and calls the compiled CLI for each export.
+The Workbench is GeoRena's browser interface. Open `http://127.0.0.1:8765` while the local server is running. Select a preset and seed to generate and download the GLB. The preview opens in 3D orbit by default. Choose **Top-down** to see the arena from above. The Workbench switches to that view automatically if WebGL is unavailable or the browser loses its graphics context. The server binds to loopback and calls the compiled CLI for each export.
 
 Open **Asset palette** to preview and download the bundled [UI textures, avatars, HUD icons, power-ups, rewards, decals, and effect sprites](assets/ui/).
 
-The interface lives under `workbench/` and the CLI can be built, tested, and used independently. The project uses no third-party packages or remote assets.
+The interface lives under `workbench/` and the CLI can be built, tested, and used independently. Both run offline without installing packages.
+
+## Optional GLB validation
+
+With Node.js and Python 3 installed, run `make validate-glb` to check 522 generated GLBs with the [bundled Khronos validator](tools/vendor/). The check runs offline and reports errors and warnings. The archive is included in the repository so it is available in an offline checkout or upload.
 
 ## License
 
-GeoRena's source code and bundled assets are available under the [MIT License](LICENSE). The license allows commercial use, modification, and redistribution. Include the copyright and permission notices in copies or substantial portions. The material is provided as is, without warranty.
+GeoRena's source code and artwork are available under the [MIT License](LICENSE). The license allows commercial use, modification, and redistribution. Include the copyright and permission notices in copies or substantial portions. The material is provided as is, without warranty. The optional validator archive retains its upstream Apache-2.0 license and notices.

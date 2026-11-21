@@ -71,6 +71,7 @@ h1 { margin: 0; font-size: clamp(1.25rem, 2.5vw, 1.65rem); letter-spacing: -0.06
   background: var(--overlay);
 }
 .stage-head { border-bottom: 1px solid var(--line); }
+.stage-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.4rem; }
 .label {
   margin: 0 0 0.24rem;
   text-transform: uppercase;
@@ -79,7 +80,8 @@ h1 { margin: 0; font-size: clamp(1.25rem, 2.5vw, 1.65rem); letter-spacing: -0.06
   font: 0.65rem var(--font-mono);
 }
 h2 { margin: 0; overflow-wrap: anywhere; font-size: clamp(1.15rem, 3vw, 1.5rem); letter-spacing: -0.04em; }
-#viewport { width: 100%; height: 100%; min-height: 0; cursor: grab; touch-action: none; }
+#viewport, #top-down { width: 100%; height: 100%; min-height: 0; }
+#viewport { cursor: grab; touch-action: none; }
 #viewport:focus-visible { outline-offset: -3px; }
 #viewport:active { cursor: grabbing; }
 .stage-foot { border-top: 1px solid var(--line); color: var(--quiet); font: 0.71rem var(--font-mono); }

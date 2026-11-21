@@ -5,7 +5,7 @@ GeoRena is an offline 3D arena generator. The goal is to turn a seed or a top-do
 ## Available now
 
 - Seeded racing circuit and FPS depot presets, plus two car models with five levels each.
-- A native C++17 CLI and a local WebGL Workbench for generation, preview, and GLB export.
+- A native C++17 CLI and a local Workbench with 3D orbit, a top-down view, and GLB export.
 - Bundled game UI art and seven offline tests covering export structure, seed repeatability, track geometry, and car upgrades.
 - [Racing and FPS map samples](assets/maps/) with labeled layouts, elevation, and reference checks.
 

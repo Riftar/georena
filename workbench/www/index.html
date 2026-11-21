@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/asset-palette.css">
+  <script src="/top-down.js" defer></script>
   <script src="/main.js" defer></script>
   <script src="/asset-palette.js" defer></script>
 </head>
@@ -25,11 +26,15 @@
           <p class="label">Scene preview</p>
           <h2 id="scene-name">Racing circuit</h2>
         </div>
-        <button id="reset-view" type="button" disabled>Reset view</button>
+        <div class="stage-actions">
+          <button id="switch-view" type="button" hidden>Top-down</button>
+          <button id="reset-view" type="button" disabled>Reset view</button>
+        </div>
       </div>
       <canvas id="viewport" aria-label="3D orbit preview" aria-describedby="camera-help" tabindex="0"></canvas>
+      <canvas id="top-down" aria-label="Top-down arena preview" aria-describedby="camera-help" hidden></canvas>
       <div class="stage-foot">
-        <span id="camera-help">Drag or use arrow keys to orbit. Scroll or use +/− to zoom.</span>
+        <span id="camera-help" aria-live="polite">Drag or use arrow keys to orbit. Scroll or use +/− to zoom.</span>
         <output id="counts"></output>
       </div>
       <p id="status" class="status" role="status">Generating scene…</p>
