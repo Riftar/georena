@@ -9,11 +9,19 @@ import subprocess
 from urllib.parse import parse_qs, urlsplit
 
 HERE = Path(__file__).resolve().parent
+WEB = HERE / "www"
+ART = HERE.parent / "assets" / "ui"
 STATIC = {
-    "/": ("index.html", "text/html; charset=utf-8"),
-    "/main.js": ("main.js", "text/javascript; charset=utf-8"),
-    "/style.css": ("style.css", "text/css; charset=utf-8"),
-    "/tokens.css": ("tokens.css", "text/css; charset=utf-8"),
+    "/": (WEB / "index.html", "text/html; charset=utf-8"),
+    "/main.js": (WEB / "main.js", "text/javascript; charset=utf-8"),
+    "/style.css": (WEB / "style.css", "text/css; charset=utf-8"),
+    "/tokens.css": (WEB / "tokens.css", "text/css; charset=utf-8"),
+    "/asset-palette.js": (WEB / "asset-palette.js", "text/javascript; charset=utf-8"),
+    "/asset-palette.css": (WEB / "asset-palette.css", "text/css; charset=utf-8"),
+    **{f"/assets/ui/{name}": (ART / name, "image/jpeg")
+       for name in ("arena-surfaces.jpg", "prop-materials.jpg")},
+    **{f"/assets/ui/{name}": (ART / name, "image/png")
+       for name in ("racing-decals.png", "weather.png", "elements.png")},
 }
 
 
@@ -25,8 +33,13 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(400)
             return
         if url.path in STATIC:
-            name, mime = STATIC[url.path]
-            self.send_bytes((HERE / "www" / name).read_bytes(), mime)
+            path, mime = STATIC[url.path]
+            try:
+                data = path.read_bytes()
+            except FileNotFoundError:
+                self.send_error(404)
+                return
+            self.send_bytes(data, mime)
         elif url.path == "/api/scene":
             self.scene(url.query)
         else:

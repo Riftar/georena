@@ -1,0 +1,38 @@
+# UI asset sheets
+
+These bundled sheets were made with built-in ImageGen. The optional workbench includes an **Asset palette** for previewing and downloading them offline.
+
+| Sheet | Format | Top left | Top right | Bottom left | Bottom right |
+| --- | --- | --- | --- | --- | --- |
+| [Arena surfaces](arena-surfaces.jpg) | 1024 × 1024 JPEG | Asphalt | Beach sand | Alpine grass | Slate |
+| [Prop materials](prop-materials.jpg) | 1024 × 1024 JPEG | Crate wood | Container steel | Tire rubber | Concrete |
+| [Racing decals](racing-decals.png) | 768 × 768 PNG with alpha | Racing stripes | Chevrons | 07 roundel | Finish checkers |
+| [Weather](weather.png) | 768 × 768 PNG with alpha | Rain | Snow | Wind | Fog |
+| [Elements](elements.png) | 768 × 768 PNG with alpha | Fire | Water | Ice | Lightning |
+
+Grid cells start at 0% or 50% of the image on each axis. The surface sheets are swatches for UI previews. The decals and effect sprites are static images. GeoRena's GLB exports currently use flat material colors.
+
+<details>
+<summary>Image generation prompts</summary>
+
+**Arena surfaces**
+
+> Generate a square texture atlas for the GeoRena low-poly game editor UI. Exactly four evenly sized material swatches in a clean 2 by 2 grid, divided at the exact horizontal and vertical midpoints, edge to edge with zero padding, no lines and no labels. Top left is charcoal asphalt with fine gray aggregate. Top right is warm pale beach sand with shallow wind ripples. Bottom left is muted alpine grass made of a few broad overlapping low-poly facets. Bottom right is cool gray exposed rock with angular slate facets. All four are flat orthographic surface samples at matching scale, matte, softly colored, and uniformly lit. Fill each quadrant completely with its own material. No objects, perspective, horizon, cast shadows, text, logos, or watermark.
+
+**Prop materials**
+
+> Generate a square texture atlas for generic prop materials in the GeoRena low-poly game editor UI. Exactly four evenly sized material swatches in a clean 2 by 2 grid, divided at the exact horizontal and vertical midpoints, edge to edge with zero padding, no lines and no labels. Top left is warm rough wooden crate planks with subtle two-tone grain. Top right is muted blue painted corrugated shipping-container steel with a few small scratches. Bottom left is dark charcoal vehicle tire rubber showing a simple diagonal tread pattern. Bottom right is pale warm gray cast concrete with restrained small pores. Flat orthographic surface samples, matte, simplified game texture style, restrained contrast, and uniformly lit. Fill each quadrant completely with its own material. No objects, perspective, horizon, cast shadows, text, logos, or watermark.
+
+**Racing decals**
+
+> Generate a square transparent racing decal atlas for original low-poly game cars in GeoRena. Put exactly four separate flat print-ready vinyl designs in an evenly spaced 2 by 2 grid, each centered inside its quadrant with generous transparent padding on all sides. Top left: two long parallel ivory racing stripes, one thick and one thin. Top right: two bold amber forward chevrons, simple blunt corners. Bottom left: an ivory circular number roundel containing the exact dark charcoal number '07'. Bottom right: a short two-row ivory and charcoal checkered finish stripe with six columns. Use crisp hard edges and solid fills. Transparent background between and around all designs, including the gaps within each design. No shadows, reflections, texture, vehicle mockup, grid lines, borders, extra labels, branding, or watermark. The only text is the 07 inside the roundel.
+
+**Weather**
+
+> Create a square transparent weather sprite sheet for GeoRena's low-poly game editor. Four independent static weather effect graphics in an exact 2 by 2 grid, each centered within its quadrant and fully contained with at least 15 percent clear transparent padding. Top left: a cluster of distinct blue slanted rain streaks. Top right: six drifting ivory and pale blue snowflakes in varied sizes. Bottom left: three curved mint-blue gust lines sweeping to the right. Bottom right: pale steel-blue horizontal fog wisps, layered with gentle alpha falloff, readable as fog on both dark and light UI panels. Match simple hand-painted faceted game art, clear silhouettes, high legibility at thumbnail size. True alpha background throughout and between all particles. No backgrounds, cloud icons, outlines around the cells, text, grid lines, scene elements, watermarks, or extra graphics.
+
+**Elements**
+
+> Create a square transparent elemental effect sprite sheet for GeoRena's low-poly game editor. Four independent, clearly legible static effect sprites in an exact 2 by 2 grid, each centered inside its own quadrant and fully contained with at least 15 percent clear transparent padding. Top left: an angular orange and scarlet fire flame with golden center. Top right: a crisp cyan water splash with a few suspended droplets. Bottom left: an icy blue cluster of sharp translucent frost crystals. Bottom right: a golden-white jagged lightning bolt with two fine violet electrical branches. Faceted hand-painted low-poly game art, clean silhouettes, balanced visual scale, designed to read at thumbnail size. True alpha background around each effect and between particles. No ground plane, pedestal, scene, sky, texture fills outside the sprites, text, cell borders, logos, or watermarks.
+
+</details>

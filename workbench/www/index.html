@@ -8,7 +8,9 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/asset-palette.css">
   <script src="/main.js" defer></script>
+  <script src="/asset-palette.js" defer></script>
 </head>
 <body>
   <header class="bar">
@@ -61,6 +63,26 @@
         <button class="generate" type="submit">Generate scene</button>
       </form>
     </aside>
+    <details class="asset-palette" id="asset-palette">
+      <summary>Asset palette</summary>
+      <div class="asset-content">
+        <div class="asset-controls">
+          <label class="asset-collection">Collection
+            <select id="asset-collection">
+              <option value="arena">Arena surfaces</option>
+              <option value="props">Prop materials</option>
+              <option value="decals">Racing decals</option>
+              <option value="weather">Weather</option>
+              <option value="elements">Elements</option>
+            </select>
+          </label>
+          <label class="asset-backdrop" hidden><input id="asset-light" type="checkbox"> Light backdrop</label>
+          <a id="asset-download" class="download" href="/assets/ui/arena-surfaces.jpg" download>Download sheet <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="asset-grid" id="asset-grid"></div>
+        <p id="asset-status" class="asset-status" role="status" hidden></p>
+      </div>
+    </details>
   </main>
 </body>
 </html>

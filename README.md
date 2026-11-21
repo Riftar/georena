@@ -41,6 +41,8 @@ python3 workbench/serve.py
 
 Open [the local workbench](http://127.0.0.1:8765) in a WebGL-capable browser. Select a preset and seed, generate the scene, then orbit, zoom, or download the GLB. The server binds to loopback and calls the compiled CLI for each export.
 
+Open **Asset palette** to preview and download the bundled [UI textures, decals, and effect sprites](assets/ui/).
+
 The entire workbench lives under `workbench/`. You can omit that directory and still build, test, and use the CLI offline. The project uses no third-party packages or remote assets.
 
 ## License
