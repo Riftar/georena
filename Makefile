@@ -5,7 +5,7 @@ PYTHON ?= python3
 
 all: build/georena
 
-build/georena: src/main.cpp src/arena.cpp src/glb.cpp src/arena.hpp Makefile
+build/georena: src/main.cpp src/arena.cpp src/car.cpp src/glb.cpp src/arena.hpp src/car.hpp Makefile
 	mkdir -p build
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -std=c++17 -ffp-contract=off $(filter %.cpp,$^) $(LDFLAGS) $(LDLIBS) -o $@
 
@@ -16,3 +16,5 @@ samples: build/georena
 	mkdir -p assets
 	./build/georena race 42 assets/circuit.glb
 	./build/georena fps 42 assets/depot.glb
+	./build/georena car coupe 1 assets/coupe.glb
+	./build/georena car rally 1 assets/rally.glb

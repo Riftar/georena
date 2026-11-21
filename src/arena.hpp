@@ -44,10 +44,13 @@ struct Triangle {
 struct Mesh {
     std::string name;
     std::vector<Triangle> faces;
+    Vec3 translation{};
 
     void triangle(Vec3 a, Vec3 b, Vec3 c, Paint paint);
     void quad(Vec3 a, Vec3 b, Vec3 c, Vec3 d, Paint paint);
 };
+
+void box(Mesh& mesh, Vec3 center, Vec3 size, Paint paint, Vec3 axis = {1, 0, 0});
 
 struct Scene {
     Mode mode;

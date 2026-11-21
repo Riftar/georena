@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CLI = ROOT / "build" / "georena"
 
 
-def generate(mode, seed):
-    return subprocess.check_output([CLI, mode, str(seed), "-"])
+def generate(*args):
+    return subprocess.check_output([CLI, *map(str, args), "-"])
 
 
 def decode(glb):
@@ -68,11 +68,18 @@ class GeorenaTests(unittest.TestCase):
                     document, _ = decode(generate(mode, seed))
                     self.assertEqual(document["scenes"][0]["extras"], {"mode": mode, "seed": seed})
 
+    def test_car_exports_are_repeatable(self):
+        for preset in ("coupe", "rally"):
+            with self.subTest(preset=preset):
+                self.assertEqual(generate("car", preset, 1), generate("car", preset, 1))
+
     def test_glb_positions_bounds_and_flat_normals(self):
-        for mode, sample in (("race", "circuit"), ("fps", "depot")):
-            for source, glb in (("generated", generate(mode, 42)),
+        samples = [(("race", 42), "circuit"), (("fps", 42), "depot"),
+                   (("car", "coupe", 5), "coupe"), (("car", "rally", 5), "rally")]
+        for args, sample in samples:
+            for source, glb in (("generated", generate(*args)),
                                 ("bundled", (ROOT / f"assets/{sample}.glb").read_bytes())):
-                with self.subTest(mode=mode, source=source):
+                with self.subTest(sample=sample, source=source):
                     document, data = decode(glb)
                     self.assertEqual(document["asset"]["version"], "2.0")
                     self.assertEqual(document["scenes"][0]["nodes"], list(range(len(document["nodes"]))))
@@ -130,6 +137,43 @@ class GeorenaTests(unittest.TestCase):
                 amber = {(-x, y, -z) for x, y, z in groups["Amber wing"]}
                 self.assertEqual(amber, set(groups["Cyan wing"]))
 
+    def test_car_upgrades_keep_mesh_topology_and_footprint(self):
+        for preset in ("coupe", "rally"):
+            base = None
+            previous_width = previous_radius = 0
+            for level in range(1, 6):
+                with self.subTest(preset=preset, level=level):
+                    glb = generate("car", preset, level)
+                    document, data = decode(glb)
+                    self.assertEqual(document["scenes"][0]["extras"], {"type": preset, "level": level})
+                    nodes = document["nodes"]
+                    self.assertEqual([node["name"] for node in nodes],
+                                     ["Body", "Cabin", "Trim", "Wheel.FL", "Wheel.FR", "Wheel.RL", "Wheel.RR"])
+                    centers = {node["name"]: node.get("translation", [0, 0, 0]) for node in nodes}
+                    groups = meshes(glb)
+                    world = [(x + centers[name][0], y + centers[name][1], z + centers[name][2])
+                             for name, points in groups.items() for x, y, z in points]
+                    width = max(abs(x) for x, _, _ in world) * 2
+                    height = max(y for _, y, _ in world)
+                    length = max(z for _, _, z in world) - min(z for _, _, z in world)
+                    signature = [(name, pos["count"]) for name, pos, _ in primitives(document, data)]
+                    axles = [centers[name][2] for name in ("Wheel.FL", "Wheel.RL")]
+                    if base is None:
+                        base = (width, height, length, signature, axles)
+                    self.assertEqual((length, signature, axles), base[2:])
+                    self.assertLessEqual(width, base[0] * 1.08)
+                    self.assertLessEqual(height, base[1] * 1.05)
+                    self.assertGreater(width, previous_width)
+                    self.assertGreater(centers["Wheel.FL"][1], previous_radius)
+                    previous_width, previous_radius = width, centers["Wheel.FL"][1]
+                    for left, right in (("Wheel.FL", "Wheel.FR"), ("Wheel.RL", "Wheel.RR")):
+                        x, y, z = centers[left]
+                        self.assertEqual(centers[right], [-x, y, z])
+                        for name in (left, right):
+                            points = groups[name]
+                            self.assertAlmostEqual(min(p[1] for p in points), -y)
+                            self.assertAlmostEqual(max(p[1] for p in points), y)
+
     def test_cli_file_output_and_bad_arguments(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "arena.glb"
@@ -140,6 +184,12 @@ class GeorenaTests(unittest.TestCase):
                 self.assertFalse(output.exists())
             subprocess.run([CLI, "race", "42", output], check=True)
             self.assertEqual(output.read_bytes(), generate("race", 42))
+            for preset, level in [("truck", "1"), ("coupe", "0"), ("rally", "6"), ("coupe", "2.5")]:
+                result = subprocess.run([CLI, "car", preset, level, output], capture_output=True)
+                self.assertEqual(result.returncode, 2)
+                self.assertEqual(output.read_bytes(), generate("race", 42))
+            subprocess.run([CLI, "car", "rally", "5", output], check=True)
+            self.assertEqual(output.read_bytes(), generate("car", "rally", 5))
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 #include "arena.hpp"
+#include "car.hpp"
 
 #include <algorithm>
 #include <cstring>
@@ -43,19 +44,17 @@ struct Primitive {
 };
 
 struct Object {
-    const std::string& name;
+    const Mesh& mesh;
     std::size_t first, end;
 };
 
-}  // namespace
-
-void writeGlb(const Scene& scene, std::ostream& output) {
+void writeMeshes(const std::vector<Mesh>& meshes, const std::string& extras, std::ostream& output) {
     constexpr int stride = 24;
     std::vector<char> bytes;
     std::vector<Primitive> primitives;
     std::vector<Object> objects;
 
-    for (const auto& mesh : scene.meshes) {
+    for (const auto& mesh : meshes) {
         const auto first = primitives.size();
         for (std::size_t paint = 0; paint < palette.size(); ++paint) {
             constexpr float infinity = std::numeric_limits<float>::infinity();
@@ -81,7 +80,7 @@ void writeGlb(const Scene& scene, std::ostream& output) {
             }
         }
         if (first != primitives.size()) {
-            objects.push_back({mesh.name, first, primitives.size()});
+            objects.push_back({mesh, first, primitives.size()});
         }
     }
 
@@ -92,16 +91,21 @@ void writeGlb(const Scene& scene, std::ostream& output) {
     for (std::size_t i = 0; i < objects.size(); ++i) {
         json << (i ? "," : "") << i;
     }
-    json << R"(],"extras":{"mode":")" << modeName(scene.mode) << R"(","seed":)" << scene.seed
-         << R"(}}],"nodes":[)";
+    json << R"(],"extras":)" << extras << R"(}],"nodes":[)";
     for (std::size_t i = 0; i < objects.size(); ++i) {
-        json << (i ? "," : "") << R"({"name":)" << std::quoted(objects[i].name)
-             << R"(,"mesh":)" << i << '}';
+        const auto& mesh = objects[i].mesh;
+        const auto [x, y, z] = mesh.translation;
+        json << (i ? "," : "") << R"({"name":)" << std::quoted(mesh.name)
+             << R"(,"mesh":)" << i;
+        if (x != 0 || y != 0 || z != 0) {
+            json << R"(,"translation":[)" << x << ',' << y << ',' << z << ']';
+        }
+        json << '}';
     }
     json << R"(],"meshes":[)";
     for (std::size_t i = 0; i < objects.size(); ++i) {
         const auto& object = objects[i];
-        json << (i ? "," : "") << R"({"name":)" << std::quoted(object.name)
+        json << (i ? "," : "") << R"({"name":)" << std::quoted(object.mesh.name)
              << R"(,"primitives":[)";
         for (auto j = object.first; j < object.end; ++j) {
             json << (j != object.first ? "," : "") << R"({"attributes":{"POSITION":)"
@@ -148,6 +152,20 @@ void writeGlb(const Scene& scene, std::ostream& output) {
     writeWord(output, static_cast<std::uint32_t>(bytes.size()));
     output.write("BIN\0", 4);
     output.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+}
+
+}  // namespace
+
+void writeGlb(const Scene& scene, std::ostream& output) {
+    const auto extras = std::string{R"({"mode":")"} + modeName(scene.mode) +
+                        R"(","seed":)" + std::to_string(scene.seed) + '}';
+    writeMeshes(scene.meshes, extras, output);
+}
+
+void writeGlb(const Car& car, std::ostream& output) {
+    const auto extras = std::string{R"({"type":")"} + carTypeName(car.type) +
+                        R"(","level":)" + std::to_string(car.level) + '}';
+    writeMeshes(car.meshes, extras, output);
 }
 
 }  // namespace georena

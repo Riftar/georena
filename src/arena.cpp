@@ -28,8 +28,9 @@ struct Random {
     }
 };
 
-void box(Mesh& mesh, Vec3 center, Vec3 size, Paint paint,
-         Vec3 axis = {1, 0, 0}) {
+}  // namespace
+
+void box(Mesh& mesh, Vec3 center, Vec3 size, Paint paint, Vec3 axis) {
     const Vec3 x = axis * (size.x / 2);
     const Vec3 z = Vec3{-axis.z, 0, axis.x} * (size.z / 2);
     const Vec3 y{0, size.y / 2, 0};
@@ -43,6 +44,8 @@ void box(Mesh& mesh, Vec3 center, Vec3 size, Paint paint,
     mesh.quad(corners[0] + y, corners[3] + y, corners[2] + y, corners[1] + y, paint);
     mesh.quad(corners[0] - y, corners[1] - y, corners[2] - y, corners[3] - y, paint);
 }
+
+namespace {
 
 constexpr float diagonal = 0.70710678f;
 constexpr std::array<Vec3, 8> octagon{{
