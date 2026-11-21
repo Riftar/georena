@@ -10,6 +10,10 @@
     hud: ["hud-icons.png", "Stopwatch", "Finish flag", "Trophy", "Shield"],
     fpsAvatars: ["fps-avatars.png", "Amber visor", "Cyan visor", "Amber open helmet", "Cyan open helmet"],
     fpsHud: ["fps-hud-icons.png", "Health", "Charge", "Objective", "Reticle"],
+    fpsObjectives: ["fps-objective-badges.png", "Flag Capture", "Team Assist", "Hold the Line", "Comeback"],
+    fpsPerformance: ["fps-performance-badges.png", "First Victory", "Win Streak", "Supply Runner", "Overtime Clutch"],
+    trophies: ["reward-trophies.png", "Bronze", "Silver", "Gold", "Champion"],
+    racingPowerups: ["racing-powerups.png", "Extra Grip", "Pickup Magnet", "Score Multiplier", "Ghost Pass"],
   };
 
   const palette = document.querySelector("#asset-palette");

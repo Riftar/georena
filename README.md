@@ -13,8 +13,8 @@ Use an installed C++17 compiler and Make. Python 3 runs the test suite.
 
 ```sh
 make
-./build/georena race 42 circuit.glb
-./build/georena fps 42 depot.glb
+./build/georena race 42 build/circuit.glb
+./build/georena fps 42 build/depot.glb
 make test
 ```
 
@@ -25,8 +25,8 @@ Seeds are unsigned 32-bit integers. Use `-` as the output argument to stream GLB
 The [coupe](assets/coupe.glb) is a low wedge with a sloped cabin. The [rally hatch](assets/rally.glb) has a taller cabin, more ground clearance, and larger tires. Both bundled models are level 1.
 
 ```sh
-./build/georena car coupe 1 coupe.glb
-./build/georena car rally 5 rally.glb
+./build/georena car coupe 1 build/coupe.glb
+./build/georena car rally 5 build/rally.glb
 ```
 
 Pass a level from 1 through 5. The generator widens the body by up to 5%, increases tire radius by up to 6% and tire width by up to 12%, and raises and deepens the rear spoiler. Wheelbase, overall length, and mesh topology stay fixed. Models face +Z with Y up and tires resting at Y = 0. The four wheel meshes have axle-centered pivots and rotate around their local X axis.
@@ -39,12 +39,12 @@ In C++, call `georena::generateCar(type, level)` from [car.hpp](src/car.hpp). [c
 python3 workbench/serve.py
 ```
 
-The Workbench is GeoRena's browser interface. Open it at [localhost:8765](http://127.0.0.1:8765) in a WebGL-capable browser. Select a preset and seed, generate the scene, then orbit, zoom, or download the GLB. The server binds to loopback and calls the compiled CLI for each export.
+The Workbench is GeoRena's browser interface. Open `http://127.0.0.1:8765` in a WebGL-capable browser while the local server is running. Select a preset and seed, generate the scene, then orbit, zoom, or download the GLB. The server binds to loopback and calls the compiled CLI for each export.
 
-Open **Asset palette** to preview and download the bundled [UI textures, avatars, HUD icons, decals, and effect sprites](assets/ui/).
+Open **Asset palette** to preview and download the bundled [UI textures, avatars, HUD icons, power-ups, rewards, decals, and effect sprites](assets/ui/).
 
 The interface lives under `workbench/` and the CLI can be built, tested, and used independently. The project uses no third-party packages or remote assets.
 
 ## License
 
-[MIT](LICENSE)
+GeoRena's source code and bundled assets are available under the [MIT License](LICENSE). The license allows commercial use, modification, and redistribution. Include the copyright and permission notices in copies or substantial portions. The material is provided as is, without warranty.

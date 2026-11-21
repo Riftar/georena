@@ -22,7 +22,8 @@ STATIC = {
        for name in ("arena-surfaces.jpg", "prop-materials.jpg")},
     **{f"/assets/ui/{name}": (ART / name, "image/png")
        for name in ("racing-decals.png", "weather.png", "elements.png", "racing-avatars.png",
-                    "hud-icons.png", "fps-avatars.png", "fps-hud-icons.png")},
+                    "hud-icons.png", "fps-avatars.png", "fps-hud-icons.png", "fps-objective-badges.png",
+                    "fps-performance-badges.png", "reward-trophies.png", "racing-powerups.png")},
 }
 
 

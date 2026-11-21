@@ -69,15 +69,27 @@
         <div class="asset-controls">
           <label class="asset-collection">Collection
             <select id="asset-collection">
-              <option value="arena">Arena surfaces</option>
-              <option value="props">Prop materials</option>
-              <option value="decals">Racing decals</option>
-              <option value="weather">Weather</option>
-              <option value="elements">Elements</option>
-              <option value="racingAvatars">Racing avatars</option>
-              <option value="hud">Shared HUD icons</option>
-              <option value="fpsAvatars">FPS avatars</option>
-              <option value="fpsHud">FPS HUD icons</option>
+              <optgroup label="Environment">
+                <option value="arena">Arena surfaces</option>
+                <option value="props">Prop materials</option>
+                <option value="weather">Weather</option>
+                <option value="elements">Elements</option>
+              </optgroup>
+              <optgroup label="Racing">
+                <option value="decals">Racing decals</option>
+                <option value="racingAvatars">Racing avatars</option>
+                <option value="racingPowerups">Racing power-ups</option>
+              </optgroup>
+              <optgroup label="FPS">
+                <option value="fpsAvatars">FPS avatars</option>
+                <option value="fpsHud">FPS HUD icons</option>
+                <option value="fpsObjectives">Objective badges</option>
+                <option value="fpsPerformance">Performance badges</option>
+              </optgroup>
+              <optgroup label="Shared game UI">
+                <option value="hud">Shared HUD icons</option>
+                <option value="trophies">Reward trophies</option>
+              </optgroup>
             </select>
           </label>
           <label class="asset-backdrop" hidden><input id="asset-light" type="checkbox"> Light backdrop</label>
