@@ -7,6 +7,8 @@ GeoRena generates low-poly 3D blockouts from a seed. The C++17 engine ships with
 
 Exports are self-contained GLB files with named meshes, material colors, and flat normals. Coordinates use meters with Y up. The scene metadata records the preset and seed. The output is geometry for game development.
 
+See the [roadmap](ROADMAP.md) for planned gameplay, arena creation, and daily challenges.
+
 ## Core quick start
 
 Use an installed C++17 compiler and Make. Python 3 runs the test suite.
