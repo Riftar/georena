@@ -33,17 +33,17 @@ Pass a level from 1 through 5. The generator widens the body by up to 5%, increa
 
 In C++, call `georena::generateCar(type, level)` from [car.hpp](src/car.hpp). [car.cpp](src/car.cpp) contains the base proportions and level scaling. The exported GLB stores the car type and level in the scene metadata.
 
-## Optional workbench
+## Workbench
 
 ```sh
 python3 workbench/serve.py
 ```
 
-Open [the local workbench](http://127.0.0.1:8765) in a WebGL-capable browser. Select a preset and seed, generate the scene, then orbit, zoom, or download the GLB. The server binds to loopback and calls the compiled CLI for each export.
+The Workbench is GeoRena's browser interface. Open it at [localhost:8765](http://127.0.0.1:8765) in a WebGL-capable browser. Select a preset and seed, generate the scene, then orbit, zoom, or download the GLB. The server binds to loopback and calls the compiled CLI for each export.
 
-Open **Asset palette** to preview and download the bundled [UI textures, decals, and effect sprites](assets/ui/).
+Open **Asset palette** to preview and download the bundled [UI textures, avatars, HUD icons, decals, and effect sprites](assets/ui/).
 
-The entire workbench lives under `workbench/`. You can omit that directory and still build, test, and use the CLI offline. The project uses no third-party packages or remote assets.
+The interface lives under `workbench/` and the CLI can be built, tested, and used independently. The project uses no third-party packages or remote assets.
 
 ## License
 

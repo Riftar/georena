@@ -6,6 +6,10 @@
     decals: ["racing-decals.png", "Racing stripes", "Chevrons", "Number roundel", "Finish checkers"],
     weather: ["weather.png", "Rain", "Snow", "Wind", "Fog"],
     elements: ["elements.png", "Fire", "Water", "Ice", "Lightning"],
+    racingAvatars: ["racing-avatars.png", "Orange helmet", "Teal rally helmet", "Ivory helmet", "Yellow helmet"],
+    hud: ["hud-icons.png", "Stopwatch", "Finish flag", "Trophy", "Shield"],
+    fpsAvatars: ["fps-avatars.png", "Amber visor", "Cyan visor", "Amber open helmet", "Cyan open helmet"],
+    fpsHud: ["fps-hud-icons.png", "Health", "Charge", "Objective", "Reticle"],
   };
 
   const palette = document.querySelector("#asset-palette");

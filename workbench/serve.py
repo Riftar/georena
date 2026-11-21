@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Serve the optional GeoRena workbench on loopback."""
+"""Serve the GeoRena Workbench on loopback."""
 
 import argparse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -21,7 +21,8 @@ STATIC = {
     **{f"/assets/ui/{name}": (ART / name, "image/jpeg")
        for name in ("arena-surfaces.jpg", "prop-materials.jpg")},
     **{f"/assets/ui/{name}": (ART / name, "image/png")
-       for name in ("racing-decals.png", "weather.png", "elements.png")},
+       for name in ("racing-decals.png", "weather.png", "elements.png", "racing-avatars.png",
+                    "hud-icons.png", "fps-avatars.png", "fps-hud-icons.png")},
 }
 
 
